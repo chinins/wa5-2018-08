@@ -1,45 +1,42 @@
 import React, { Component } from 'react';
 import './App.css';
+import TopicsList from './components/TopicsList';
+import NewTopic from './components/NewTopic';
+import * as Actions from './redux/actions';
+
+import { connect } from 'react-redux';
+
+const baseUrl = 'https://private-anon-7bcdfda42c-codemocracy.apiary-mock.com/topics';
 
 class App extends Component {
+  constructor (props) {
+    super(props);
+    this.fetchTopics();
+
+  }
+
+  fetchTopics () {
+    fetch(baseUrl)
+      .then(res => res.json())
+      .then(topics => this.props.setTopics(topics))
+  }
+
   render() {
     return (
       <div className="App">
-        <form className="NewTopic">
-          <input type="text" placeholder="Write a new topic"></input>
-          <input type="submit" value="Add new topic"></input>
-        </form>
-        <div className="TopicsList">
-          <div className="TopicsListItem">
-            <div className="actions">
-              <button><span className="vote-btn">🔼</span></button>
-              <span>0</span>
-              <button><span className="vote-btn">🔽</span></button>
-            </div>
-            <div className="content">
-              <h2>Porting from Angular.js to Angular 2</h2>
-              <span><small>Created on </small>Date</span>
-            </div>
-            <div className="accessory"><span>🗑</span></div>
-          </div>
-
-          <div className="TopicsListItem">
-            <div className="actions">
-              <button><span>🔼</span></button>
-              <span>0</span>
-              <button><span>🔽</span></button>
-            </div>
-            <div className="content">
-              <h2>Porting from Angular.js to Angular 2</h2>
-              <span><small>Created on </small>Date</span>
-            </div>
-            <div className="accessory"><spna>🗑</spna></div>
-          </div>
-
-        </div>
+        <NewTopic></NewTopic>
+        <TopicsList topics={this.props.topics}></TopicsList>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  topics: state.topics
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setTopics: (topics) => dispatch(Actions.setTopics(topics))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
