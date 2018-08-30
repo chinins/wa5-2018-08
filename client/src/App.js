@@ -6,7 +6,8 @@ import * as Actions from './redux/actions';
 
 import { connect } from 'react-redux';
 
-const baseUrl = 'https://private-anon-7bcdfda42c-codemocracy.apiary-mock.com/topics';
+// const baseUrl = 'https://private-anon-7bcdfda42c-codemocracy.apiary-mock.com/topics';
+const baseUrl = 'http://localhost:3001/topics';
 
 class App extends Component {
   constructor (props) {
@@ -26,11 +27,11 @@ class App extends Component {
       body: JSON.stringify({
         title
       }),
-      header: {
-        'Content-Type': 'applications/json'
+      headers: {
+        'Content-Type': 'application/json'
       }
     })
-      .then(this.fetchTopics());
+      .then(() => this.fetchTopics());
   }
 
   deleteTopic = (topic) => {
@@ -38,7 +39,7 @@ class App extends Component {
     fetch(baseUrl + '/' + topic._id, {
       method: 'DELETE',
     })
-      .then(this.fetchTopics());
+      .then(() => this.fetchTopics());
   }
 
   voteTopic = (up, topic) => {
@@ -47,7 +48,7 @@ class App extends Component {
     fetch(`${baseUrl}/${topic._id}/${direction}`, {
       method: 'PUT'
     })
-      .then(this.fetchTopics());
+      .then(() => this.fetchTopics());
   }
 
   render() {

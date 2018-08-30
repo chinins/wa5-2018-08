@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 
 export default class NewTopic extends Component {
-  state = '';
+  state = {
+    title: ''
+  }
 
   submitForm = (e) => {
     e.preventDefault();
