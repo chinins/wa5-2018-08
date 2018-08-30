@@ -28,11 +28,12 @@ const createTopic = (req, res) => {
 }
 
 const voteTopic = (req, res) => {
+  // if (req.params.direction !== 'up' || req.params.direction !== 'down') res.sendStatus(404);
   const amount = req.params.direction === 'up' ? 1 : -1;
 
   console.log('vote topics');
   Topic.findOneAndUpdate({
-    _id: res.params.id
+    _id: req.params.id
   }, {
     $inc: {
       score: amount
