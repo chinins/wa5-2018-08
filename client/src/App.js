@@ -12,7 +12,6 @@ class App extends Component {
   constructor (props) {
     super(props);
     this.fetchTopics();
-
   }
 
   fetchTopics () {
@@ -21,11 +20,41 @@ class App extends Component {
       .then(topics => this.props.setTopics(topics))
   }
 
+  createTopic = (title) => {
+    fetch(baseUrl, {
+      method: 'POST',
+      body: JSON.stringify({
+        title
+      }),
+      header: {
+        'Content-Type': 'applications/json'
+      }
+    })
+      .then(this.fetchTopics());
+  }
+
+  deleteTopic = (topic) => {
+
+    fetch(baseUrl + '/' + topic._id, {
+      method: 'DELETE',
+    })
+      .then(this.fetchTopics());
+  }
+
+  voteTopic = (up, topic) => {
+    const direction = up ? 'up': 'down';
+
+    fetch(`${baseUrl}/${topic._id}/${direction}`, {
+      method: 'PUT'
+    })
+      .then(this.fetchTopics());
+  }
+
   render() {
     return (
       <div className="App">
-        <NewTopic></NewTopic>
-        <TopicsList topics={this.props.topics}></TopicsList>
+        <NewTopic onTopicCreate={this.createTopic}></NewTopic>
+        <TopicsList topics={this.props.topics} onDelete={this.deleteTopic} onVote={this.voteTopic}></TopicsList>
       </div>
     );
   }
