@@ -1,0 +1,56 @@
+.App {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 60px 30px;
+}
+
+.TopicsListItem {
+  margin-bottom: 20px;
+  display: flex;
+  box-shadow: 10px 10px 13px -4px rgba(137,138,143,1);
+  background-color: #fafafa;
+}
+
+.TopicsListItem .actions {
+  display: flex;
+  flex-direction: column;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .vote-btn {
+  height: 50px;
+  width: auto;
+} */
+
+.TopicsListItem .content {
+  flex: 1;
+  padding: 10px;
+}
+
+h2 {
+  margin-top: 0px;
+}
+
+.NewTopic {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.NewTopic input[type=text] {
+  border: 1px solid #999;
+  padding-left: 5px;
+  height: 40px;
+  width: 200px;
+}
+
+.NewTopic input[type="submit"] {
+  background-color: cornflowerblue;
+  margin-left: 5px;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 4px;
+}
